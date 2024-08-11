@@ -1,0 +1,8 @@
+tqdm
+openai
+tiktoken
+numpy
+requests
+retry
+scipy
+dashscope
