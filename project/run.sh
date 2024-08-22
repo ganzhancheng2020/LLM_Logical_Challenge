@@ -6,6 +6,21 @@ if ! command -v python &> /dev/null; then
     exit 1
 fi
 
+if ! command -v pip &> /dev/null; then
+    echo "pip 未安装或不在PATH中，请先安装 pip。"
+    exit 1
+fi
+
+# 安装依赖项
+echo "正在安装依赖项..."
+pip install -r requirements.txt
+
+# 检查依赖项安装是否成功
+if [ $? -ne 0 ]; then
+    echo "依赖项安装失败，退出脚本。"
+    exit 1
+fi
+
 # 定义 src 目录的路径
 src_dir="./src"
 
