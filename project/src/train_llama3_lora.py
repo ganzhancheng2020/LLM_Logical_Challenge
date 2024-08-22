@@ -10,13 +10,13 @@
 import torch
 from modelscope import snapshot_download, AutoModel, AutoTokenizer
 import os
-model_dir = snapshot_download('./models/LLM-Research/Meta-Llama-3.1-8B-Instruct', cache_dir='./', revision='master')
+model_dir = snapshot_download('./LLM-Research/Meta-Llama-3.1-8B-Instruct', cache_dir='./models/Meta-Llama-3.1-8B-Instruct', revision='master')
 
 
 # In[2]:
 
 
-model_dir = "./models/LLM-Research/Meta-Llama-3___1-8B-Instruct"
+# model_dir = "./models/LLM-Research/Meta-Llama-3___1-8B-Instruct"
 
 
 # ## 这里运行完请重启notebook
@@ -227,7 +227,7 @@ from peft import PeftModel
 
 output_dir="./output/llama3_instruct_lora/20240818"
 
-mode_path = "./LLM-Research/Meta-Llama-3___1-8B-Instruct"
+mode_path = "./models/Meta-Llama-3.1-8B-Instruct/LLM-Research"
 lora_path = f'{output_dir}/checkpoint-700' # 这里改称你的 lora 输出对应 checkpoint 地址
 
 # 加载tokenizer

@@ -27,7 +27,7 @@ from tqdm import tqdm
 logger.remove()  # 移除默认的控制台输出
 logger.add("logs/app_{time:YYYY-MM-DD}.log", level="INFO", rotation="00:00", retention="10 days", compression="zip")
 
-MODEL_NAME = 'llama3-7B-Instruct-lora'
+MODEL_NAME = 'llama3-8b-lora'
 def api_retry(MODEL_NAME, query):
     max_retries = 5
     retry_delay = 60  # in seconds
@@ -221,6 +221,23 @@ def find_missing_ids(dict_list):
     
     return sorted(missing_ids)
 
+def format_submit_file(file):
+    validated_problem_sets = []
+    for data in file:
+        questions = data['questions']
+        _id = data['id']
+        validated_questions = []
+        for question in questions:
+            validated_questions.append(
+                {"answer": question['answer']}
+             )
+        # 创建一个新的问题集字典，只包含有效的问题
+        validated_problem_set = {
+            'id': _id,
+            'questions': validated_questions
+        }
+        validated_problem_sets.append(validated_problem_set)
+    return validated_problem_sets
 
 def main(ifn, ofn):
     if os.path.exists(ofn):
@@ -260,11 +277,14 @@ def main(ifn, ofn):
                     question['answer'] = 'A'
                 sorted_data.append(sample)
     sorted_data = sorted(sorted_data, key=lambda x: int(str(x['id'])[-3:]))
+    sorted_data = format_submit_file(sorted_data)
     with open(ofn, 'w') as writer:
         for sample in sorted_data:
             writer.write(json.dumps(sample, ensure_ascii=False))
             writer.write('\n')
+            
+import datetime
+filename = "./submit/submit_"+datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 if __name__ == '__main__':
-    return_list = main('round1_test_data.jsonl', 'upload.jsonl')
-    
+    return_list = main('./data/round1_test_data.jsonl', filename)

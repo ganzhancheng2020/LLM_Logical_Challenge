@@ -39,7 +39,7 @@ def find_missing_ids(dict_list):
     extracted_ids = {int(d['id'][-3:]) for d in dict_list}
     import json
     data = []
-    with open("round1_test_data.jsonl", encoding="utf-8") as reader:
+    with open("data/round1_test_data.jsonl", encoding="utf-8") as reader:
         for line in reader:
             sample = json.loads(line)
             data.append(sample)
@@ -110,7 +110,7 @@ def process_file(ifn,ofn):
 
     # 从 round1_test_data.jsonl 中提取与 missing_ids 对应的条目
     missing_questions = []
-    with open('round1_test_data.jsonl', 'r', encoding='utf-8') as reader:
+    with open('data/round1_test_data.jsonl', 'r', encoding='utf-8') as reader:
         for line in reader:
             question = json.loads(line)
             question_id_suffix = int(question['id'][-3:])
@@ -199,7 +199,7 @@ def main(ifn,result):
     '''
     
 import datetime
-filename = "../submit/submit_"+datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
+filename = "./submit/submit_"+datetime.datetime.now().strftime('%Y%m%d_%H%M%S')
 
 if __name__ == '__main__':
     main('upload.jsonl',filename)
