@@ -1,0 +1,10 @@
+transformers==4.44.0
+vllm==0.5.3.post1
+tf-keras
+modelscope
+scipy 
+openai
+tiktoken
+retry
+dashscope
+loguru
