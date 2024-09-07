@@ -70,9 +70,9 @@ def get_prompt(problem, question, options):
 
 ### 题目:
 {problem}
-
 ### 问题:
 {question}
+### 选项：
 {options}
 """
     # print(prompt)
